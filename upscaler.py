@@ -68,12 +68,13 @@ gpu = [
     [
         sg.Combo(
             [
-                "GPU:0",
-                "GPU:1",
-                "GPU:2",
-                "GPU:3",
+                "Default",
+                "0",
+                "1",
+                "2",
+                "3",
             ],
-            default_value="GPU:0",
+            default_value="Default",
             size=(10, 1),
             key="-GPU-",
         ),
@@ -102,24 +103,45 @@ event, values = window.read()  # Part 4 - Event loop or Window.read call
 # command = f'python {values["-SCRIPT-"]} -i {values["-INPUT-"]} -o {values["-OUTPUT-"]} -n {values["-MODEL-"][0]} -s {values["-SCALE-"]} -t {values["-TAIL-"]} -g {values["-GPU-"]} --suffix {values["-SUFFIX-"]}'
 # print(command)
 
-subprocess.run(
-    [
-        "python",
-        values["-SCRIPT-"],
-        "-i",
-        values["-INPUT-"],
-        "-o",
-        values["-OUTPUT-"],
-        "-n",
-        values["-MODEL-"][0],
-        "-s",
-        values["-SCALE-"],
-        "-t",
-        values["-TAIL-"],
-        "-g",
-        values["-GPU-"],
-        "--suffix",
-        values["-SUFFIX-"],
-    ]
-)
+if values["-GPU-"] != "Default":
+    subprocess.run(
+        [
+            "python",
+            values["-SCRIPT-"],
+            "-i",
+            values["-INPUT-"],
+            "-o",
+            values["-OUTPUT-"],
+            "-n",
+            values["-MODEL-"][0],
+            "-s",
+            values["-SCALE-"],
+            "-t",
+            values["-TAIL-"],
+            "-g",
+            values["-GPU-"],
+            "--suffix",
+            values["-SUFFIX-"],
+        ]
+    )
+
+else:
+    subprocess.run(
+        [
+            "python",
+            values["-SCRIPT-"],
+            "-i",
+            values["-INPUT-"],
+            "-o",
+            values["-OUTPUT-"],
+            "-n",
+            values["-MODEL-"][0],
+            "-s",
+            values["-SCALE-"],
+            "-t",
+            values["-TAIL-"],
+            "--suffix",
+            values["-SUFFIX-"],
+        ]
+    )
 window.close()
