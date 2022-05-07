@@ -1,6 +1,6 @@
 import PySimpleGUI as sg
 import subprocess
-
+import os
 
 start = [[sg.Button("Cancel"), sg.Button("Start")]]
 
@@ -8,9 +8,9 @@ start = [[sg.Button("Cancel"), sg.Button("Start")]]
 
 io = [
     [
-        sg.Text("python_inference.py location", size=(20, 1)),
-        sg.Input(size=(25, 1), key="-SCRIPT-"),
-        sg.FileBrowse(),
+        sg.Text("ESRGAN Location", size=(20, 1)),
+        sg.Input(size=(25, 1), key="-ESRGAN-"),
+        sg.FolderBrowse(),
     ],
     [
         sg.Text("Folder or Video Path", size=(20, 1)),
@@ -125,10 +125,11 @@ if values["-GPU-"] != "Default":
     )
 
 else:
+    os.chdir(values["-ESRGAN-"])
     subprocess.run(
         [
             "python",
-            values["-SCRIPT-"],
+            "inference_realesrgan.py",
             "-i",
             values["-INPUT-"],
             "-o",
