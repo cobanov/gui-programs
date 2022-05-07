@@ -29,10 +29,9 @@ model = [
         sg.Text("Choose model name", size=(20, 1)),
         sg.Listbox(
             values=[
-                "realesrgan-x4plus",
-                "realesrnet-x4plus",
-                "realesrgan-x4plus-anime",
-                "realesr-animevideov3",
+                "RealESRGAN_x4plus",
+                "RealESRGAN_x2plus",
+                "RealESRNet_x4plus",
             ],
             default_values="realesrgan-x4plus",
             select_mode="LISTBOX_SELECT_MODE_SINGLE",
